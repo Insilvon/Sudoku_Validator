@@ -40,5 +40,6 @@ public class main {
             check++;
         }
         System.out.println();
+        System.out.println(myPuzzle.validate(temp));
     }
 }

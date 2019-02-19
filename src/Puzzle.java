@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Puzzle {
 
@@ -138,5 +138,13 @@ public class Puzzle {
         String[] temp2 = new String[temp.size()];
         for (int i = 0; i<temp.size(); i++) temp2[i] = temp.get(i);
         return temp2;
+    }
+
+    public boolean validate(String[] values){
+        if (values.length!=9) return false;
+        List answer = Arrays.asList("1","2","3","4","5","6","7","8","9");
+        List temp = Arrays.asList(values);
+        Collections.sort(temp);
+        return temp.equals(answer);
     }
 }
