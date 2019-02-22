@@ -1,45 +1,79 @@
 import java.io.File;
-import java.io.FileReader;
 import java.util.Scanner;
 
 public class main {
-    public static void main(String[] args){
+    private static boolean cols = false;
+    private static boolean rows = false;
+    static boolean blocks = false;
+    static Puzzle myPuzzle;
+
+    public static void main(String[] args) {
+
         Scanner in = new Scanner(System.in);
         File file;
+
         while (true) {
             System.out.println("File name to look for?");
             String input = in.nextLine();
-            String file_name = "./"+input;
+            String file_name = "./" + input;
             file = new File(file_name);
             if (file.exists()) break;
             else System.out.println("File does not exist. Try again?");
         }
-        Puzzle myPuzzle = new Puzzle(file);
-        myPuzzle.printMatrix();
-        System.out.println("================================");
-        String[] temp = myPuzzle.getCol(0);
-        for (int i = 0; i<temp.length; i++){
-            System.out.print(temp[i]);
-        }
-        System.out.println();
-        System.out.println("================================");
-        temp = myPuzzle.getRow(0);
-        for (int i = 0; i<temp.length; i++){
-            System.out.print(temp[i]);
-        }
-        System.out.println();
-        System.out.println("================================");
-        temp = myPuzzle.getBlock(1);
-        int check = 0;
-        for (int i = 0; i<temp.length; i++){
-            if (check == 3){
-                check = 0;
-                System.out.println();
+        myPuzzle = new Puzzle(file);
+
+        Thread t1 = new Thread(new Columns());
+        Thread t2 = new Thread(new Rows());
+        Thread t3 = new Thread(new Blocks());
+
+        t1.run();
+        t2.run();
+        t3.run();
+
+        if (cols && rows && blocks) System.out.println("Valid!");
+        else System.out.println("Not valid!");
+    }
+
+    public static class Columns implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Cols running!");
+            for (int i = 0; i < 9; i++) {
+                if (!myPuzzle.validate(myPuzzle.getCol(i).clone())) {
+                    return;
+                }
             }
-            System.out.print(temp[i]);
-            check++;
+            cols = true;
+            System.out.println("C done!");
         }
-        System.out.println();
-        System.out.println(myPuzzle.validate(temp));
+
+    }
+
+    public static class Rows implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Rows running!");
+            for (int i = 0; i < 9; i++) {
+                if (!myPuzzle.validate(myPuzzle.getRow(i).clone())) {
+                    return;
+                }
+            }
+            rows = true;
+            System.out.println("R done!");
+        }
+    }
+
+    public static class Blocks implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Blocks running!");
+            for (int i = 1; i <= 9; i++) {
+                if (!myPuzzle.validate(myPuzzle.getBlock(i).clone())) {
+                    return;
+                }
+            }
+            blocks = true;
+            System.out.println("B done!");
+        }
     }
 }
