@@ -7,19 +7,18 @@ public class main {
     static boolean blocks = false;
     static Puzzle myPuzzle;
 
-    public static void main(String[] args) {
+    public static String heartbeat(File file) {
 
-        Scanner in = new Scanner(System.in);
-        File file;
+//        Scanner in = new Scanner(System.in);
 
-        while (true) {
-            System.out.println("File name to look for?");
-            String input = in.nextLine();
-            String file_name = "./" + input;
-            file = new File(file_name);
-            if (file.exists()) break;
-            else System.out.println("File does not exist. Try again?");
-        }
+//        while (true) {
+//            System.out.println("File name to look for?");
+//            String input = in.nextLine();
+//            String file_name = "./" + input;
+//            file = new File(file_name);
+//            if (file.exists()) break;
+//            else System.out.println("File does not exist. Try again?");
+//        }
         myPuzzle = new Puzzle(file);
 
         Thread t1 = new Thread(new Columns());
@@ -30,8 +29,14 @@ public class main {
         t2.run();
         t3.run();
 
-        if (cols && rows && blocks) System.out.println("Valid!");
-        else System.out.println("Not valid!");
+        if (cols && rows && blocks) {
+            System.out.println("Valid!");
+            return "\n\nThis is a valid puzzle!";
+        }
+        else {
+            System.out.println("Not valid!");
+            return "\n\nThis is not a valid puzzle!";
+        }
     }
 
     public static class Columns implements Runnable {
