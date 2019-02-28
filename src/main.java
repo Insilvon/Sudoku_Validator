@@ -31,10 +31,16 @@ public class main {
 
         if (cols && rows && blocks) {
             System.out.println("Valid!");
+            rows = false;
+            cols = false;
+            blocks = false;
             return "\n\nThis is a valid puzzle!";
         }
         else {
             System.out.println("Not valid!");
+            rows = false;
+            cols = false;
+            blocks = false;
             return "\n\nThis is not a valid puzzle!";
         }
     }
