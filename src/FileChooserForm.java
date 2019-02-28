@@ -6,11 +6,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * GUI form which uses a filechooser to determine what file to open
+ * For sudoku validation.
+ */
 public class FileChooserForm {
     private JPanel myPanel;
     private JButton button1;
     private JTextField textField1;
     private JTextArea messageLabel;
+    private JTextArea colinCroweCOSC460TextArea;
+
+    /**
+     * Main method of the application. Creates the JFrame.
+     * @param args
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("FileChooserForm");
         frame.setContentPane(new FileChooserForm().myPanel);
@@ -29,7 +39,6 @@ public class FileChooserForm {
 
             String result = main.heartbeat(file);
             line+=result;
-            System.out.println(line);
             messageLabel.setText(line);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -42,10 +51,8 @@ public class FileChooserForm {
             public void actionPerformed(ActionEvent e) {
                 messageLabel.setText("");
                 JFileChooser fc = new JFileChooser();
-                fc.setCurrentDirectory(new File(".//"));
-//                fc.setFileFilter(new FileNameExtensionFilter("txt"));
+                fc.setCurrentDirectory(new File(".../"));
                 int returnValue = fc.showOpenDialog(myPanel);
-//
                 if (returnValue == JFileChooser.APPROVE_OPTION){
                     File file = fc.getSelectedFile();
                     String filename = file.getAbsolutePath();
