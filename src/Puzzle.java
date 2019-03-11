@@ -3,10 +3,17 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * Custom ADT which handles creating the Sudoku puzzle from input
+ */
 public class Puzzle {
 
     private String[][] grid = new String[9][9];
 
+    /**
+     * Constructor method to generate the puzzle.
+     * @param theFile The File which to be opened and read.
+     */
     public Puzzle(File theFile) {
         try {
             Scanner reader = new Scanner(theFile);
