@@ -16,14 +16,22 @@ public class Puzzle {
                 StringBuilder line = new StringBuilder(reader.nextLine());
                 //remove any decimals
                 while (line.indexOf(".")!=-1) line.deleteCharAt(line.indexOf("."));
-                String accepted = "123456789-";
+                String accepted = "123456789- ";
+
                 for (int i = 0; i<line.length(); i++){
-                    if (!accepted.contains(line.charAt(i)+"")) line.deleteCharAt(i);
+                    if (!accepted.contains(line.charAt(i)+"")) {
+                        line.deleteCharAt(i);
+                    }
                 }
                 //convert to array
-                String[] characters = line.toString().split("-");
+                String[] characters = new String[1];
+                if (line.toString().contains(" ")) characters = line.toString().split(" ");
+                else if (line.toString().contains("-")) characters = line.toString().split("-");
                 //slap it into the 2D array
-                if (characters.length!=9) System.out.println("Invalid length!");
+                if (characters.length!=9) {
+                    System.out.println("Invalid length!");
+
+                }
                 else System.arraycopy(characters, 0, grid[row], 0, characters.length);
                 row++;
             }
